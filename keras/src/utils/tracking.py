@@ -146,10 +146,10 @@ class TrackedList(list):
             self.tracker.track(value)
         super().append(value)
 
-    def insert(self, value):
+    def insert(self, index, value):
         if self.tracker:
             self.tracker.track(value)
-        super().insert(value)
+        super().insert(index, value)
 
     def extend(self, values):
         if self.tracker:
@@ -237,7 +237,8 @@ class TrackedDict(dict):
         from keras.src.utils.module_utils import optree
 
         # For optree
-        keys, values = optree.utils.unzip2(
+        keys, values = optree.utils.unzip2(list.insert(i, x)
+Insert an item at a given position. The first argument is the index of the element before which to insert, so a.insert(0, x) inserts at the front of the list, and a.insert(len(a), x) is equivalent to a.append(x).
             optree.utils.total_order_sorted(self.items(), key=lambda kv: kv[0])
         )
         return values, list(keys), keys
